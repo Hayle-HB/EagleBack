@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newsletter</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <aside class="sidebar" id="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="/admin/add-blog">Add Blog</a></li>
+        <li><a href="/admin/blog-list">Blog List</a></li>
+        <li><a href="/admin/news-letter" class="active">Newsletter</a></li>
+        <li><a href="/admin/subscribers">Subscribers</a></li>
+      </ul>
+      <div class="user-profile">
+        <img src="/images/user-profile.png" alt="User Profile" />
+        <p>Username</p>
+      </div>
+    </aside>
+
+    <main>
+      <div class="container" style="position: relative">
+        <h1>Send Newsletter</h1>
+        <form method="POST">
+          <div>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required />
+          </div>
+          <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="10" required></textarea>
+          </div>
+          <button type="submit">Send Newsletter</button>
+        </form>
+        <div class="loading-overlay">
+          <div class="loader"></div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+      const form = document.querySelector("form");
+      const loaderOverlay = document.querySelector(".loading-overlay");
+      const loader = document.querySelector(".loader");
+      loaderOverlay.style.display = "none";
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const subject = e.target.subject.value;
+        const message = e.target.message.value;
+
+        loaderOverlay.style.display = "flex"; // Show the loader
+
+        try {
+          const response = await fetch(
+            "https://kefita-tech-backend-1.onrender.com/api/sendMessage",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ subject, message }), // Send the subject and message
+            }
+          );
+
+          loaderOverlay.style.display = "none"; // Hide the loader
+
+          if (response.ok) {
+            alert("Message Sent Successfully");
+          } else {
+            alert("Failed to send message.");
+          }
+        } catch (err) {
+          loaderOverlay.style.display = "none"; // Hide the loader on error
+          console.log(err);
+          alert("An error occurred while sending the message.");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    
+    <aside class="sidebar" id="sidebar">
+        <!-- <div class="sidebar-header">
+            <button class="close-btn" id="close-btn">
+                Close
+            </button>
+            <button class="open-btn" id="open-btn">
+               Open
+            </button> 
+        </div> -->
+        <ul class="sidebar-menu">
+            <li><a href="/admin/add-blog" class="active">Add Blog</a></li>
+            <li><a href="/admin/blog-list">Blog List</a></li>
+            <li><a href="/admin/news-letter">NewsLetter</a></li>
+            <li><a href="/admin/subscribers">Subscribers</a></li>
+        </ul>
+        <div class="user-profile">
+            <img src="/images/user-profile.png" alt="User Profile" />
+            <p>Username</p>
+        </div>
+    </aside>
+
+    <main>
+        <div class="container">
+        </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const closeBtn = document.getElementById('close-btn');
+            const openBtn = document.getElementById('open-btn');
+
+            // Function to close the sidebar
+            closeBtn.addEventListener('click', () => {
+                sidebar.classList.remove('open'); // Remove open class
+                sidebar.classList.add('close'); // Add close class
+            });
+
+            // Function to open the sidebar
+            openBtn.addEventListener('click', () => {
+                sidebar.classList.remove('close'); // Remove close class
+                sidebar.classList.add('open'); // Add open class
+            });
+        });
+    </script>
+</body>
+</html>

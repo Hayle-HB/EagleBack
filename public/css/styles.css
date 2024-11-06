@@ -1,0 +1,418 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Admin Header Styling */
+.admin-header {
+  z-index: 1000;
+  padding: 20px 30px;
+  background-color: #f4f4f4; /* Light gray background */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.admin-header .logo img {
+  width: 10rem;
+  height: auto;
+}
+
+.admin-header h1 {
+  font-size: 2rem;
+  color: rgb(72, 71, 72);
+  text-align: center;
+  flex-grow: 1;
+  margin-left: 1rem;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px; /* Width of the sidebar */
+  background-color: #f4f4f4; /* Light gray background */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200px;
+  height: 100%;
+  position: fixed; /* Fix the sidebar */
+  top: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: left 0.5s ease; /* Smooth transition */
+}
+
+/* Keyframes for opening and closing sidebar */
+@keyframes openSidebar {
+  from {
+    left: -250px;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes closeSidebar {
+  from {
+    left: 0;
+  }
+  to {
+    left: -250px;
+  }
+}
+
+/* Open and Close Classes */
+.sidebar.open {
+  animation: openSidebar 0.5s forwards; /* Apply opening animation */
+}
+
+.sidebar.close {
+  animation: closeSidebar 0.5s forwards; /* Apply closing animation */
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0; /* Remove default padding */
+  flex-grow: 1; /* Allow the menu to take available space */
+}
+
+.sidebar-menu li {
+  margin: 15px 0; /* Spacing between links */
+}
+
+.sidebar-menu li a {
+  text-decoration: none; /* Remove underline */
+  color: #333; /* Darker text for readability */
+  padding: 10px;
+  border-radius: 4px; /* Rounded corners */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.sidebar-menu li a:hover {
+  background-color: rgb(0, 255, 136);; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+}
+
+/* Active link styling */
+.sidebar-menu li a.active {
+  background-color: rgb(0, 255, 136);; /* Different background for active link */
+  color: #fff; /* Text color for active link */
+}
+
+/* User Profile Section */
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.user-profile img {
+  width: 50px; /* Profile picture size */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 50%; /* Circular profile picture */
+  margin-right: 10px; /* Space between image and text */
+}
+
+.user-profile p {
+  font-weight: bold; /* Bold username */
+  color: #333; /* Darker text for readability */
+}
+
+.sidebar-header {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Main Content Styling */
+main {
+  margin-left: 500px; /* Space for sidebar */
+  padding: 20px;
+  transition: margin-left 0.5s ease; /* Smooth transition for main content */
+}
+
+main h1 {
+  text-align: center;
+  color: aqua;
+}
+
+/* Form Styles */
+form {
+  margin-top: 20px;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold; /* Bold labels */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px; /* Font size for input fields */
+}
+
+button {
+  background-color: rgb(7, 142, 79);; /* Button color */
+  color: #fff; /* Button text color */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+button:hover {
+  background-color: #ff6347; /* Change background color on hover */
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4; /* Light gray background for headers */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    left: -200px; /* Adjust for smaller screens */
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  main {
+    margin-left: 0; /* Remove sidebar margin on small screens */
+  }
+}
+
+.blog-list,
+.subscribers {
+  margin-left: 300px;
+}
+
+.blog-list svg:hover {
+  width: 24px;
+  fill: aqua;
+}
+
+.delete {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.latest-post {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 10px;
+  margin-top: -100px;
+}
+
+@media (max-width: 1024px) {
+  .latest-post {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
+
+
+.loader {
+
+  position: absolute;
+  margin-left: 0px;
+  margin-top: -300px;
+  margin-right: 100px;
+  width: 100px;
+  height: 100px;
+  border: 3px dotted #000000;
+  border-style: solid solid dotted dotted;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+.loader::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px dotted #FF3D00;
+  border-style: solid solid dotted;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  animation: rotationBack 1s linear infinite;
+  transform-origin: center center;
+}
+    
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+} 
+
+
+
+.blog-list h1 {
+  align-items: center;
+  text-align: center;
+  color: aqua;
+}
+
+#blog-container {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 75vw;
+  overflow: hidden;
+}
+
+.latest-post {
+  width: 400px;
+  margin-top: 20px;
+}
+.box {
+  width: 400px;
+}
+
+.item p {
+  color: aqua;
+  cursor: pointer;
+}
+.item p:hover {
+  color: red;
+}
+
+.box-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+img {
+  width: 100%;
+}
+
+
+
+/* Styles for the Blog Edit Form */
+#edit-form {
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#edit-form h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#edit-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+#edit-form input[type="text"],
+#edit-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#edit-form input[type="file"] {
+  margin-bottom: 20px;
+}
+
+#edit-form textarea {
+  min-height: 100px;
+}
+
+#edit-form button {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+}
+
+#edit-form button:hover {
+  background-color: #0056b3;
+}

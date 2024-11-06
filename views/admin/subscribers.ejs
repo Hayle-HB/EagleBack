@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscribers - <%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <aside class="sidebar" id="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="/admin/add-blog">Add Blog</a></li>
+        <li><a href="/admin/blog-list">Blog List</a></li>
+        <li><a href="/admin/news-letter">Newsletter</a></li>
+        <li><a href="/admin/subscribers" class="active">Subscribers</a></li>
+      </ul>
+      <div class="user-profile">
+        <img src="/images/user-profile.png" alt="User Profile" />
+        <p>Username</p>
+      </div>
+    </aside>
+
+    <main class="subscribers">
+      <div class="container">
+        <h1>Subscribers List</h1>
+        <h3>Total: <span id="total-subscriber"></span></h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Emails</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% subscribers.forEach(subscriber => { %>
+            <tr>
+              <td><%= subscriber.email %></td>
+              <td style="position: relative">
+                <p
+                  style="cursor: pointer"
+                  class="delete"
+                  data-subscriber-id="<%= subscriber.id %>"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24px"
+                    fill="red"
+                    viewBox="0 0 448 512"
+                  >
+                    <path
+                      d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z "
+                    />
+                  </svg>
+                </p>
+                <span class="warning-text"></span>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+
+      const total_subscriber =  document.getElementById('total-subscriber');
+
+
+      async function  totalSubscibers()  {
+
+        try {
+
+          const response = await fetch(
+                `https://kefita-tech-backend-1.onrender.com/api/subscribers`,
+                {
+                  method: "GET",
+                }
+              );
+        const total = response.json();
+        console.log(total)
+
+        } catch(err) {
+          total_subscriber.innerHTML = '';
+        }
+
+      }
+
+      totalSubscibers();
+    
+
+
+
+
+      // Event delegation for delete buttons
+      document.addEventListener("click", async (e) => {
+        if (e.target.closest(".delete")) {
+          const deleteButton = e.target.closest(".delete");
+          const subscriberId = deleteButton.getAttribute("data-subscriber-id");
+          const warningText = deleteButton.nextElementSibling;
+
+          // Show a warning message
+          const confirmDelete = confirm(
+            "Are you sure you want to delete this subscriber?"
+          );
+
+          if (confirmDelete) {
+            try {
+              // Send DELETE request to backend
+              const response = await fetch(
+                `https://kefita-tech-backend-1.onrender.com/api/subscriber/${subscriberId}`,
+                {
+                  method: "DELETE",
+                }
+              );
+
+              if (response.ok) {
+                // Remove the subscriber row from the table
+                deleteButton.closest("tr").remove();
+              } else {
+                alert("Failed to delete subscriber.");
+              }
+            } catch (err) {
+              console.error("Error:", err);
+              alert("An error occurred while deleting the subscriber.");
+            }
+          } else {
+            warningText.innerText = "Subscriber not deleted.";
+            setTimeout(() => {
+              warningText.innerText = "";
+            }, 2000);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
